@@ -9,7 +9,14 @@ import {
   DropdownLabel,
   DropdownMenu,
 } from '@/components/dropdown'
-import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from '@/components/navbar'
+import { 
+  Navbar, 
+  NavbarItem, 
+  NavbarSection, 
+  NavbarSpacer, 
+  NavbarLabel, 
+  NavbarDivider 
+} from '@/components/navbar'
 import {
   Sidebar,
   SidebarBody,
@@ -32,16 +39,11 @@ import {
   PlusIcon,
   ShieldCheckIcon,
   UserCircleIcon,
+  UserIcon
 } from '@heroicons/react/16/solid'
-import {
-  Cog6ToothIcon,
-  HomeIcon,
-  QuestionMarkCircleIcon,
-  SparklesIcon,
-  Square2StackIcon,
-  TicketIcon,
-} from '@heroicons/react/20/solid'
 import { usePathname } from 'next/navigation'
+import { StackedLayout } from '@/components/stacked-layout'
+import { InboxIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 
 function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' }) {
   return (
@@ -68,6 +70,39 @@ function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' })
   )
 }
 
+function TeamDropdownMenu() {
+  return (
+    <DropdownMenu className="min-w-80 lg:min-w-64" anchor="bottom start">
+      <DropdownItem href="/teams/1/settings">
+        <Cog8ToothIcon />
+        <DropdownLabel>Settings</DropdownLabel>
+      </DropdownItem>
+      <DropdownDivider />
+      <DropdownItem href="/teams/1">
+        <Avatar slot="icon" src="/flags/mx.svg" />
+        <DropdownLabel>Tailwind Labs</DropdownLabel>
+      </DropdownItem>
+      <DropdownItem href="/teams/2">
+        <Avatar slot="icon" initials="WC" className="bg-purple-500 text-white" />
+        <DropdownLabel>Workcation</DropdownLabel>
+      </DropdownItem>
+      <DropdownDivider />
+      <DropdownItem href="/teams/create">
+        <PlusIcon />
+        <DropdownLabel>New team&hellip;</DropdownLabel>
+      </DropdownItem>
+    </DropdownMenu>
+  )
+}
+
+const navItems = [
+  { label: 'Home', url: '/' },
+  { label: 'Events', url: '/events' },
+  { label: 'Orders', url: '/orders' },
+  { label: 'Broadcasts', url: '/broadcasts' },
+  { label: 'Settings', url: '/settings' },
+]
+
 export function ApplicationLayout({
   events,
   children,
@@ -78,16 +113,61 @@ export function ApplicationLayout({
   let pathname = usePathname()
 
   return (
-    <SidebarLayout
+    <StackedLayout
       navbar={
         <Navbar>
+          <Dropdown>
+            <DropdownButton as={NavbarItem} className="max-lg:hidden">
+              <Avatar src="/flags/mx.svg" />
+              <NavbarLabel>真题网</NavbarLabel>
+              {/* <ChevronDownIcon /> */}
+            </DropdownButton>
+            <TeamDropdownMenu />
+          </Dropdown>
+          <NavbarDivider className="max-lg:hidden" />
+          <NavbarSection className="max-lg:hidden">
+            {navItems.map(({ label, url }) => (
+              <NavbarItem key={label} href={url}>
+                {label}
+              </NavbarItem>
+            ))}
+          </NavbarSection>
           <NavbarSpacer />
           <NavbarSection>
+            <NavbarItem href="/search" aria-label="Search">
+              <MagnifyingGlassIcon />
+            </NavbarItem>
+            <NavbarItem href="/inbox" aria-label="Inbox">
+              <InboxIcon />
+            </NavbarItem>
             <Dropdown>
               <DropdownButton as={NavbarItem}>
                 <Avatar src="/users/erica.jpg" square />
               </DropdownButton>
-              <AccountDropdownMenu anchor="bottom end" />
+              <DropdownMenu className="min-w-64" anchor="bottom end">
+                <DropdownItem href="/my-profile">
+                  <UserIcon />
+                  <DropdownLabel>My profile</DropdownLabel>
+                </DropdownItem>
+                <DropdownItem href="/settings">
+                  <Cog8ToothIcon />
+                  <DropdownLabel>Settings</DropdownLabel>
+                </DropdownItem>
+                <DropdownDivider />
+                <DropdownItem href="/privacy-policy">
+                  <ShieldCheckIcon />
+                  <DropdownLabel>Privacy policy</DropdownLabel>
+                </DropdownItem>
+                <DropdownItem href="/share-feedback">
+                  <LightBulbIcon />
+                  <DropdownLabel>Share feedback</DropdownLabel>
+                </DropdownItem>
+                <DropdownDivider />
+                <DropdownItem href="/logout">
+                  <ArrowRightStartOnRectangleIcon />
+                  <DropdownLabel>Sign out</DropdownLabel>
+                </DropdownItem>
+              </DropdownMenu>
             </Dropdown>
           </NavbarSection>
         </Navbar>
@@ -96,98 +176,27 @@ export function ApplicationLayout({
         <Sidebar>
           <SidebarHeader>
             <Dropdown>
-              <DropdownButton as={SidebarItem}>
-                <Avatar src="/teams/catalyst.svg" />
-                <SidebarLabel>真题网</SidebarLabel>
+              <DropdownButton as={SidebarItem} className="lg:mb-2.5">
+                <Avatar src="/flags/mx.svg" />
+                <SidebarLabel>Tailwind Labs</SidebarLabel>
                 <ChevronDownIcon />
               </DropdownButton>
-              <DropdownMenu className="min-w-80 lg:min-w-64" anchor="bottom start">
-                <DropdownItem href="/settings">
-                  <Cog8ToothIcon />
-                  <DropdownLabel>Settings</DropdownLabel>
-                </DropdownItem>
-                <DropdownDivider />
-                <DropdownItem href="#">
-                  <Avatar slot="icon" src="/teams/catalyst.svg" />
-                  <DropdownLabel>Catalyst</DropdownLabel>
-                </DropdownItem>
-                <DropdownItem href="#">
-                  <Avatar slot="icon" initials="BE" className="bg-purple-500 text-white" />
-                  <DropdownLabel>Big Events</DropdownLabel>
-                </DropdownItem>
-                <DropdownDivider />
-                <DropdownItem href="#">
-                  <PlusIcon />
-                  <DropdownLabel>New team&hellip;</DropdownLabel>
-                </DropdownItem>
-              </DropdownMenu>
+              <TeamDropdownMenu />
             </Dropdown>
           </SidebarHeader>
-
           <SidebarBody>
             <SidebarSection>
-              <SidebarItem href="/" current={pathname === '/'}>
-                <HomeIcon />
-                <SidebarLabel>Home</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/events" current={pathname.startsWith('/events')}>
-                <Square2StackIcon />
-                <SidebarLabel>Events</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/orders" current={pathname.startsWith('/orders')}>
-                <TicketIcon />
-                <SidebarLabel>Orders</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/settings" current={pathname.startsWith('/settings')}>
-                <Cog6ToothIcon />
-                <SidebarLabel>Settings</SidebarLabel>
-              </SidebarItem>
-            </SidebarSection>
-
-            <SidebarSection className="max-lg:hidden">
-              <SidebarHeading>Upcoming Events</SidebarHeading>
-              {events.map((event) => (
-                <SidebarItem key={event.id} href={event.url}>
-                  {event.name}
+              {navItems.map(({ label, url }) => (
+                <SidebarItem key={label} href={url}>
+                  {label}
                 </SidebarItem>
               ))}
             </SidebarSection>
-
-            <SidebarSpacer />
-
-            <SidebarSection>
-              <SidebarItem href="#">
-                <QuestionMarkCircleIcon />
-                <SidebarLabel>Support</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="#">
-                <SparklesIcon />
-                <SidebarLabel>Changelog</SidebarLabel>
-              </SidebarItem>
-            </SidebarSection>
           </SidebarBody>
-
-          <SidebarFooter className="max-lg:hidden">
-            <Dropdown>
-              <DropdownButton as={SidebarItem}>
-                <span className="flex min-w-0 items-center gap-3">
-                  <Avatar src="/users/erica.jpg" className="size-10" square alt="" />
-                  <span className="min-w-0">
-                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">Erica</span>
-                    <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
-                      erica@example.com
-                    </span>
-                  </span>
-                </span>
-                <ChevronUpIcon />
-              </DropdownButton>
-              <AccountDropdownMenu anchor="top start" />
-            </Dropdown>
-          </SidebarFooter>
         </Sidebar>
       }
     >
       {children}
-    </SidebarLayout>
+    </StackedLayout>
   )
 }

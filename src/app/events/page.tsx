@@ -42,7 +42,7 @@ export default async function Events() {
       </div>
       <ul className="mt-10">
         {events.map((event, index) => (
-          <>
+          <div key={event.id}>
             <li key={event.id}>
               <Divider soft={index > 0} />
               <div className="flex items-center justify-between">
@@ -81,7 +81,7 @@ export default async function Events() {
                 </div>
               </div>
             </li>
-          </>
+          </div>
         ))}
       </ul>
     </>

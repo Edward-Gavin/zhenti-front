@@ -100,7 +100,6 @@ const navItems = [
   { label: 'Events', url: '/events' },
   { label: 'Orders', url: '/orders' },
   { label: 'Broadcasts', url: '/broadcasts' },
-  { label: 'Settings', url: '/settings' },
 ]
 
 export function ApplicationLayout({

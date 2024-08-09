@@ -17,12 +17,35 @@ import {
 } from '@/components/pagination'
 import { Badge } from '@/components/badge'
 
+import {
+	Dropdown,
+	DropdownButton,
+	DropdownItem,
+	DropdownMenu
+}from '@/components/dropdown'
+
+import { EllipsisHorizontalIcon } from '@heroicons/react/16/solid'
+
 const users = [{
 	id: 0,
 	name: "123",
 	email: "123@123.com",
 	country: "China",
 	tags: ["test", "online"],
+	role: "admin"
+},{
+	id: 2,
+	name: "234",
+	email: "234@234.com",
+	country: "America",
+	tags: ["ab", "cd"],
+	role: "admin"
+},{
+	id: 2,
+	name: "234",
+	email: "234@234.com",
+	country: "America",
+	tags: ["ab", "cd"],
 	role: "admin"
 },]
 
@@ -53,6 +76,20 @@ export default async function Broadcasts() {
 								))}
 							</TableCell>
 							<TableCell className="text-zinc-500">{user.role}</TableCell>
+							<TableCell>
+								<div className="-mx-3 -my-1.5 sm:-mx-2.5">
+									<Dropdown>
+										<DropdownButton plain aria-label="More options">
+											<EllipsisHorizontalIcon />
+										</DropdownButton>
+										<DropdownMenu anchor="bottom end">
+											<DropdownItem>View</DropdownItem>
+											<DropdownItem>Edit</DropdownItem>
+											<DropdownItem>Delete</DropdownItem>
+										</DropdownMenu>
+									</Dropdown>
+								</div>
+							</TableCell>
 						</TableRow>
 					))}
 				</TableBody>

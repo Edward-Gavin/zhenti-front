@@ -96,10 +96,10 @@ function TeamDropdownMenu() {
 }
 
 const navItems = [
-  { label: 'Home', url: '/' },
-  { label: 'Events', url: '/events' },
-  { label: 'Orders', url: '/orders' },
-  { label: 'Broadcasts', url: '/broadcasts' },
+  { label: 'Home', url: '/dashboard' },
+  { label: 'Events', url: '/dashboard/events' },
+  { label: 'Orders', url: '/dashboard/orders' },
+  { label: 'Broadcasts', url: '/dashboard/broadcasts' },
 ]
 
 export function ApplicationLayout({

@@ -44,6 +44,7 @@ import {
 import { usePathname } from 'next/navigation'
 import { StackedLayout } from '@/components/stacked-layout'
 import { InboxIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { SignOut } from '@/components/sign-in'
 
 function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' }) {
   return (
@@ -162,7 +163,7 @@ export function ApplicationLayout({
                   <DropdownLabel>Share feedback</DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
-                <DropdownItem href="/logout">
+                <DropdownItem formAction={SignOut} href="/login">
                   <ArrowRightStartOnRectangleIcon />
                   <DropdownLabel>Sign out</DropdownLabel>
                 </DropdownItem>

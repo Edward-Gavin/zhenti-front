@@ -5,6 +5,9 @@ import { Heading, Subheading } from '@/components/heading'
 import { Select } from '@/components/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
 import { getRecentOrders } from '@/data'
+import { auth } from '../../auth'
+
+
 
 export function Stat({ title, value, change }: { title: string; value: string; change: string }) {
   return (
@@ -22,10 +25,12 @@ export function Stat({ title, value, change }: { title: string; value: string; c
 
 export default async function Home() {
   let orders = await getRecentOrders()
-
+  const session = await auth()
+  
   return (
     <>
       <Heading>Good afternoon, Erica</Heading>
+	  {JSON.stringify(session, null, 2)}
       <div className="mt-8 flex items-end justify-between">
         <Subheading>Overview</Subheading>
         <div>

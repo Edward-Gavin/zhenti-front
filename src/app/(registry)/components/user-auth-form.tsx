@@ -7,6 +7,7 @@ import { Icons } from "@/app/(registry)/components/icons"
 import { Button } from "@/app/(registry)/components/button"
 import { Input } from "@/app/(registry)/components/input"
 import { Label } from "@/app/(registry)/components/label"
+import { SignIn } from "@/components/sign-in"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
@@ -58,14 +59,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 					</span>
 				</div>
 			</div>
-			<Button variant="outline" type="button" disabled={isLoading}>
-				{isLoading ? (
-					<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-				) : (
-					<Icons.gitHub className="mr-2 h-4 w-4" />
-				)}{" "}
-				GitHub
-			</Button>
+			<form action={SignIn}>
+				<button type="submit">Signin with GitHub</button>
+			</form>
 		</div>
 	)
 }

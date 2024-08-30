@@ -22,7 +22,7 @@ import {
 	DropdownButton,
 	DropdownItem,
 	DropdownMenu
-}from '@/components/dropdown'
+} from '@/components/dropdown'
 
 import { EllipsisHorizontalIcon } from '@heroicons/react/16/solid'
 
@@ -33,14 +33,14 @@ const users = [{
 	country: "China",
 	tags: ["test", "online"],
 	role: "admin"
-},{
+}, {
 	id: 2,
 	name: "234",
 	email: "234@234.com",
 	country: "America",
 	tags: ["ab", "cd"],
 	role: "admin"
-},{
+}, {
 	id: 2,
 	name: "234",
 	email: "234@234.com",

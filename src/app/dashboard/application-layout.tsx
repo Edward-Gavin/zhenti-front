@@ -44,6 +44,7 @@ import {
 import { usePathname } from 'next/navigation'
 import { StackedLayout } from '@/components/stacked-layout'
 import { InboxIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { SignOut } from '@/components/sign-in'
 
 function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' }) {
 	return (
@@ -111,93 +112,91 @@ export function ApplicationLayout({
 }) {
 	let pathname = usePathname()
 
-	return (
-		<StackedLayout
-			navbar={
-				<Navbar>
-					<Dropdown>
-						<DropdownButton as={NavbarItem} className="max-lg:hidden">
-							<Avatar src="/flags/mx.svg" />
-							<NavbarLabel>真题网</NavbarLabel>
-							{/* <ChevronDownIcon /> */}
-						</DropdownButton>
-						<TeamDropdownMenu />
-					</Dropdown>
-					<NavbarDivider className="max-lg:hidden" />
-					<NavbarSection className="max-lg:hidden">
-						{navItems.map(({ label, url }) => (
-							<NavbarItem key={label} href={url}>
-								{label}
-							</NavbarItem>
-						))}
-					</NavbarSection>
-					<NavbarSpacer />
-					<NavbarSection>
-						<NavbarItem href="/search" aria-label="Search">
-							<MagnifyingGlassIcon />
-						</NavbarItem>
-						<NavbarItem href="/inbox" aria-label="Inbox">
-							<InboxIcon />
-						</NavbarItem>
-						<Dropdown>
-							<DropdownButton as={NavbarItem}>
-								<Avatar src="/users/erica.jpg" square />
-							</DropdownButton>
-							<DropdownMenu className="min-w-64" anchor="bottom end">
-								<DropdownItem href="/my-profile">
-									<UserIcon />
-									<DropdownLabel>My profile</DropdownLabel>
-								</DropdownItem>
-								<DropdownItem href="/settings">
-									<Cog8ToothIcon />
-									<DropdownLabel>Settings</DropdownLabel>
-								</DropdownItem>
-								<DropdownDivider />
-								<DropdownItem href="/privacy-policy">
-									<ShieldCheckIcon />
-									<DropdownLabel>Privacy policy</DropdownLabel>
-								</DropdownItem>
-								<DropdownItem href="/share-feedback">
-									<LightBulbIcon />
-									<DropdownLabel>Share feedback</DropdownLabel>
-								</DropdownItem>
-								<DropdownDivider />
-								<DropdownItem href="/logout">
-									<ArrowRightStartOnRectangleIcon />
-									<DropdownLabel>Sign out</DropdownLabel>
-								</DropdownItem>
-							</DropdownMenu>
-						</Dropdown>
-					</NavbarSection>
-				</Navbar>
-			}
-			sidebar={
-				<Sidebar>
-					<SidebarHeader>
-						<Dropdown>
-							<DropdownButton as={SidebarItem} className="lg:mb-2.5">
-								<Avatar src="/flags/mx.svg" />
-								<SidebarLabel>Tailwind Labs</SidebarLabel>
-								<ChevronDownIcon />
-							</DropdownButton>
-							<TeamDropdownMenu />
-						</Dropdown>
-					</SidebarHeader>
-					<SidebarBody>
-						<SidebarSection>
-							{navItems.map(({ label, url }) => (
-								<SidebarItem key={label} href={url}>
-									{label}
-								</SidebarItem>
-							))}
-						</SidebarSection>
-					</SidebarBody>
-				</Sidebar>
-			}
-		>
-			{children}
-		</StackedLayout>
-	)
+  return (
+    <StackedLayout
+      navbar={
+        <Navbar>
+          <Dropdown>
+            <DropdownButton as={NavbarItem} className="max-lg:hidden">
+              <Avatar src="/flags/mx.svg" />
+              <NavbarLabel>真题网</NavbarLabel>
+              {/* <ChevronDownIcon /> */}
+            </DropdownButton>
+            <TeamDropdownMenu />
+          </Dropdown>
+          <NavbarDivider className="max-lg:hidden" />
+          <NavbarSection className="max-lg:hidden">
+            {navItems.map(({ label, url }) => (
+              <NavbarItem key={label} href={url}>
+                {label}
+              </NavbarItem>
+            ))}
+          </NavbarSection>
+          <NavbarSpacer />
+          <NavbarSection>
+            <NavbarItem href="/search" aria-label="Search">
+              <MagnifyingGlassIcon />
+            </NavbarItem>
+            <NavbarItem href="/inbox" aria-label="Inbox">
+              <InboxIcon />
+            </NavbarItem>
+            <Dropdown>
+              <DropdownButton as={NavbarItem}>
+                <Avatar src="/users/erica.jpg" square />
+              </DropdownButton>
+              <DropdownMenu className="min-w-64" anchor="bottom end">
+                <DropdownItem href="/my-profile">
+                  <UserIcon />
+                  <DropdownLabel>My profile</DropdownLabel>
+                </DropdownItem>
+                <DropdownItem href="/settings">
+                  <Cog8ToothIcon />
+                  <DropdownLabel>Settings</DropdownLabel>
+                </DropdownItem>
+                <DropdownDivider />
+                <DropdownItem href="/privacy-policy">
+                  <ShieldCheckIcon />
+                  <DropdownLabel>Privacy policy</DropdownLabel>
+                </DropdownItem>
+                <DropdownItem href="/share-feedback">
+                  <LightBulbIcon />
+                  <DropdownLabel>Share feedback</DropdownLabel>
+                </DropdownItem>
+                <DropdownDivider />
+                <DropdownItem formAction={SignOut} href="/login">
+                  <ArrowRightStartOnRectangleIcon />
+                  <DropdownLabel>Sign out</DropdownLabel>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </NavbarSection>
+        </Navbar>
+      }
+      sidebar={
+        <Sidebar>
+          <SidebarHeader>
+            <Dropdown>
+              <DropdownButton as={SidebarItem} className="lg:mb-2.5">
+                <Avatar src="/flags/mx.svg" />
+                <SidebarLabel>Tailwind Labs</SidebarLabel>
+                <ChevronDownIcon />
+              </DropdownButton>
+              <TeamDropdownMenu />
+            </Dropdown>
+          </SidebarHeader>
+          <SidebarBody>
+            <SidebarSection>
+              {navItems.map(({ label, url }) => (
+                <SidebarItem key={label} href={url}>
+                  {label}
+                </SidebarItem>
+              ))}
+            </SidebarSection>
+          </SidebarBody>
+        </Sidebar>
+      }
+    >
+      {children}
+    </StackedLayout>
+  )
 }
-
-
